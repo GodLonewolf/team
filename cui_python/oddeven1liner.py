@@ -1,0 +1,1 @@
+while True: print("Its an even number!") if (int(input("Enter: ")) % 2 == 0) else print("Its an odd number!")
