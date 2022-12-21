@@ -14,8 +14,8 @@ def display():
 
 def main():
     global player1, player2
-    FPS = 60
     clock = pygame.time.Clock()
+    FPS = 60
     block_width = 12
     block_height = 125
     player1 = pygame.Rect(10, 10, block_width, block_height)
