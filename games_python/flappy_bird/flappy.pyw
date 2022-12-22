@@ -95,7 +95,6 @@ def main():
     speedmultiplier = 0
     i = 0
     pause = False
-    postpause = 180
     birdrect = pygame.Rect(150, pregamepos, bwidth, bheight)
     scorerect = pygame.Rect(40, 40, 1, 1)
     pipe1_random_y = random.randint(-400, -100)
@@ -125,7 +124,6 @@ def main():
                     pygame.quit()
                 if event.type == pygame.KEYUP:
                     if event.key == pygame.K_ESCAPE:
-                        postgame = 0
                         pause = False
         else:
             i += 0.5

@@ -1,8 +1,16 @@
 import pygame
+import os
 pygame.init()
 win_width = 1100
 win_height = 700
 root = pygame.display.set_mode((win_width, win_height))
+try:
+    os.chdir('games_python\\pong')
+except:
+    pass
+theme = 'dark'
+fg = '#cccccc'
+bg = '#222222'
 
 
 def display():
@@ -10,8 +18,9 @@ def display():
     pygame.draw.rect(root, fg, player1, border_radius=3)
     pygame.draw.rect(root, fg, player2, border_radius=3)
     pygame.draw.rect(root, fg, ball, border_radius=10)
-    pygame.draw.rect(root, fg, themerect, border_radius=10)
     pygame.draw.rect(root, fg, seperator)
+    root.blit(pygame.image.load(
+        'assets\\{}_theme.png'.format(theme)), (15, 15))
     pygame.display.update()
 
 
@@ -22,10 +31,7 @@ def reset_score():
 
 
 def main():
-    global player1, player2, ball, fg, bg, themerect, seperator, p1_score, p2_score
-    theme = 'dark'
-    fg = '#cccccc'
-    bg = '#222222'
+    global player1, player2, ball, fg, bg, themerect, seperator, p1_score, p2_score, theme
     FPS = 60
     clock = pygame.time.Clock()
     block_width = 12
@@ -34,11 +40,10 @@ def main():
     MAX_VEL = 5
     ball_velocity_x = 5
     ball_velocity_y = 5
-    player1 = pygame.Rect(10, 110, block_width, block_height)
-    player2 = pygame.Rect(win_width - 22, 110, block_width, block_height)
+    player1 = pygame.Rect(10, 320, block_width, block_height)
+    player2 = pygame.Rect(win_width - 22, 320, block_width, block_height)
     ball = pygame.Rect(win_width / 2 - 10, win_height /
                        2 - 10, ball_radius, ball_radius)
-    themerect = pygame.Rect(19, 19, 64, 64)
     seperator = pygame.Rect(0, 98, win_width, 2)
     gameover = False
     while not gameover:
@@ -61,7 +66,11 @@ def main():
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 pygame.quit()
-
+            if event.type == pygame.MOUSEBUTTONDOWN and 19 < mouse[0] < 83 and 19 < mouse[1] < 83:
+                if theme == 'light':
+                    theme, bg, fg = 'dark', '#222222', '#cccccc'
+                elif theme == 'dark':
+                    theme, bg, fg = 'light', '#cccccc', '#222222'
         ball.x += ball_velocity_x
         ball.y += ball_velocity_y
 
@@ -102,6 +111,10 @@ def main():
 
 def postgame(winner):
     print(winner)
+    while True:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
 
 
 reset_score()
