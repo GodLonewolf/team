@@ -4,6 +4,10 @@ pygame.init()
 postgamefont = pygame.font.Font('assets\\tictactoe_font.ttf', 64)
 
 theme = 'dark'
+try:
+    os.chdir('games_python\\tictactoe')
+except:
+    pass
 
 
 def main():
