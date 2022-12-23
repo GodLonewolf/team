@@ -13,6 +13,9 @@ fg = '#cccccc'
 bg = '#222222'
 
 
+font = pygame.font.Font('assets\\pong_font.ttf', 64)
+
+
 def display():
     root.fill(bg)
     pygame.draw.rect(root, fg, player1, border_radius=3)
@@ -21,6 +24,9 @@ def display():
     pygame.draw.rect(root, fg, seperator)
     root.blit(pygame.image.load(
         'assets\\{}_theme.png'.format(theme)), (15, 15))
+    headfontrender = font.render(scoretext, True, fg)
+    headtext_x = (1100 - headfontrender.get_size()[0])//2
+    root.blit(headfontrender, (headtext_x, 8))
     pygame.display.update()
 
 
@@ -31,28 +37,33 @@ def reset_score():
 
 
 def main():
-    global player1, player2, ball, fg, bg, themerect, seperator, p1_score, p2_score, theme
+    global player1, player2, ball, fg, bg, themerect, seperator, p1_score, p2_score, theme, scoretext
     FPS = 60
     clock = pygame.time.Clock()
     block_width = 12
     block_height = 140
     ball_radius = 20
-    MAX_VEL = 5
-    ball_velocity_x = 5
-    ball_velocity_y = 5
+    MAX_VEL = 7
+    ball_velocity_x = MAX_VEL
+    ball_velocity_y = 0
     player1 = pygame.Rect(10, 320, block_width, block_height)
     player2 = pygame.Rect(win_width - 22, 320, block_width, block_height)
     ball = pygame.Rect(win_width / 2 - 10, win_height /
-                       2 - 10, ball_radius, ball_radius)
+                       2 + 25, ball_radius, ball_radius)
     seperator = pygame.Rect(0, 98, win_width, 2)
     gameover = False
     while not gameover:
         clock.tick(FPS)
         mouse = pygame.mouse.get_pos()
-        if p1_score == 10:
-            postgame('Player 1')
-        if p2_score == 10:
-            postgame('Player 2')
+
+        scoretext = f'{p1_score} - {p2_score}'
+
+        if ball.x <= 0:
+            p2_score += 1
+            main()
+        if ball.x >= win_width - ball.width:
+            p1_score += 1
+            main()
         keys = pygame.key.get_pressed()
         if keys[pygame.K_w] and player1.y > 110:
             player1.y -= 7
@@ -95,18 +106,15 @@ def main():
             velocity_y = difference_in_y / reduction_factor
             ball_velocity_y = -velocity_y
 
-        if ball.x <= 0:
-            p1_score += 1
-            main()
-        if ball.x >= win_width - ball.width:
-            p2_score += 1
-            main()
-
         if (19 < mouse[0] < 83 and 19 < mouse[1] < 83):
             pygame.mouse.set_cursor(pygame.SYSTEM_CURSOR_HAND)
         else:
             pygame.mouse.set_cursor(pygame.SYSTEM_CURSOR_ARROW)
         display()
+        if p1_score == 5:
+            postgame('Player 1')
+        if p2_score == 5:
+            postgame('Player 2')
 
 
 def postgame(winner):
