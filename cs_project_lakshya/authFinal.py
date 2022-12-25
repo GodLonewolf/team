@@ -20,7 +20,6 @@ from simple_colors import *  # terminal print theme
 ct.set_appearance_mode("System")
 # Setting the customtkinter's color theme
 ct.set_default_color_theme("dark-blue")
-img = Image.open("assets\\bg.png")
 
 
 class App(ct.CTk):
@@ -33,9 +32,10 @@ class App(ct.CTk):
     def connectDB(self):
         global mycursor, con
         try:
-            con = pymysql.connect(host="sql6.freesqldatabase.com", user="sql6584700",
-                                  password="6qvANYE66Y", database="sql6584700",  port=3306)
-            # con = pymysql.connect(host="localhost", user="root", password="lakshya5020")
+            # con = pymysql.connect(host="sql6.freesqldatabase.com", user="sql6584700",
+            #                       password="6qvANYE66Y", database="sql6584700",  port=3306)
+            con = pymysql.connect(
+                host="localhost", user="root", password="shree")
             mycursor = con.cursor()
         except:
             messagebox.showerror(

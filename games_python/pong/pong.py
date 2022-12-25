@@ -44,6 +44,7 @@ def main():
     block_height = 140
     ball_radius = 20
     MAX_VEL = 7
+    velocity_increment_frame = 0
     ball_velocity_x = MAX_VEL
     ball_velocity_y = 0
     player1 = pygame.Rect(10, 320, block_width, block_height)
@@ -55,7 +56,10 @@ def main():
     while not gameover:
         clock.tick(FPS)
         mouse = pygame.mouse.get_pos()
-
+        velocity_increment_frame += 1
+        if velocity_increment_frame == 1000:
+            MAX_VEL += 1
+            velocity_increment_frame = 0
         scoretext = f'{p1_score} - {p2_score}'
 
         if ball.x <= 0:
