@@ -80,7 +80,7 @@ def main():
 
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
-                return
+                pygame.quit()
             if event.type == pygame.MOUSEBUTTONDOWN and 19 < mouse[0] < 83 and 19 < mouse[1] < 83:
                 if theme == 'light':
                     theme, bg, fg = 'dark', '#222222', '#cccccc'

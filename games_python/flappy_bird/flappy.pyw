@@ -121,7 +121,7 @@ def main():
             display_pause()
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
-                    return
+                    pygame.quit()
                 if event.type == pygame.KEYUP:
                     if event.key == pygame.K_ESCAPE:
                         pause = False
@@ -143,7 +143,7 @@ def main():
                 lastimg = 2
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
-                    return
+                    pygame.quit()
                 if event.type == pygame.KEYDOWN:
                     if event.key == pygame.K_SPACE:
                         keypressed = True
@@ -218,7 +218,7 @@ def postgame():
         scorerect.y = 343
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
-                return
+                exit()
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_SPACE and keytimer > 100:
                     pregame()

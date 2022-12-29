@@ -39,7 +39,7 @@ def main():
         mouse = pygame.mouse.get_pos()
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
-                return
+                exit()
             if event.type == pygame.MOUSEBUTTONDOWN and 70 < mouse[0] < 134 and 50 < mouse[1] < 114:
                 if theme == 'light':
                     theme = 'dark'
@@ -169,14 +169,14 @@ def postgame(winner):
         mouse = pygame.mouse.get_pos()
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
-                return
+                exit()
             if event.type == pygame.MOUSEBUTTONDOWN and 70 < mouse[0] < 134 and 50 < mouse[1] < 114:
                 if theme == 'light':
                     theme = 'dark'
                 elif theme == 'dark':
                     theme = 'light'
             if event.type == pygame.MOUSEBUTTONDOWN and 220 < mouse[0] < 290 and 520 < mouse[1] < 600:
-                return
+                pygame.quit()
             if event.type == pygame.MOUSEBUTTONDOWN and 340 < mouse[0] < 410 and 520 < mouse[1] < 600:
                 main()
         if theme == 'light':
